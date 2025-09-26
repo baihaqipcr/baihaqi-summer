@@ -42,5 +42,8 @@ class PegawaiController extends Controller
 
         return response()->json($data);
     }
+    public function show(string $param1)
+    {
+        return view('pegawai');
 }
-
+}
