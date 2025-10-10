@@ -8,9 +8,13 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
+    <head>
+	<link rel="stylesheet" href="{{ asset('assets/css/custom-style.css') }}">
+</head>
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            background: white
         }
 
         .navbar-brand {
@@ -22,7 +26,7 @@
         }
 
         .hero-section {
-            background-color: #3187e9;
+            background-color: purple;
             color: white;
             padding: 50px 0;
             text-align: center;
@@ -40,7 +44,7 @@
         .footer {
             margin-top: 50px;
             padding: 20px 0;
-            background-color: #f8f9fa;
+            background-color: grey;
             text-align: center;
         }
 
@@ -56,7 +60,8 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">My Laravel App</a>
+            <img src="{{ asset('assets/images/image.png') }}" alt="Logo" width="170px">
+            <a class="navbar-brand" href="#">Secret Agency</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -171,6 +176,11 @@
                             </ul>
                         </div>
                         @endif
+                        @if (session('info'))
+                            <div class="alert alert-info">
+                                    {!! session('info') !!}
+                            </div>
+                            @endif
                         <form action="{{route('question.store')}}" method="POST">
                             @csrf
                             <div class="mb-3">
