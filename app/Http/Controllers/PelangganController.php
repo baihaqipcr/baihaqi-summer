@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pelanggan;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class PelangganController extends Controller
@@ -10,9 +11,16 @@ class PelangganController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['dataPelanggan'] = Pelanggan::all();
+
+        $filterableColumns = ['gender'];
+
+        $searchableColumns = ['first_name', 'last_name', 'email', 'phone'];
+
+        $data['dataPelanggan'] = Pelanggan::filter($request, $filterableColumns)
+        ->search($request, $searchableColumns)
+        ->paginate(10)->onEachSide(2);
         return view('admin.pelanggan.index', $data);
     }
 
@@ -90,4 +98,5 @@ class PelangganController extends Controller
         $pelanggan->delete();
         return redirect()->route('pelanggan.index')->with('Delete', 'Data berhasil dihapus');
     }
+
 }
